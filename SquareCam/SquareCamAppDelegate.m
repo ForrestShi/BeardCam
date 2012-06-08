@@ -6,6 +6,8 @@
  */
 
 #import "SquareCamAppDelegate.h"
+#import "SquareCamViewController.h"
+
 
 @implementation SquareCamAppDelegate
 
@@ -14,6 +16,13 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+    self.window = [[UIWindow alloc] initWithFrame:FULLSCREEN];
+    
+    self.window.rootViewController = [[SquareCamViewController alloc] init];
+    self.window.rootViewController.view.frame = FULLSCREEN;
+    
     [self.window makeKeyAndVisible];
     
     return YES;

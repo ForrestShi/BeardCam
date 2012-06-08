@@ -28,9 +28,9 @@
 
 @property (nonatomic, strong) UIImage *beardImage;
 
-- (IBAction)takePicture:(id)sender;
-- (IBAction)switchCameras:(id)sender;
-- (IBAction)handlePinchGesture:(UIGestureRecognizer *)sender;
-- (IBAction)toggleFaceDetection:(id)sender;
+- (void)takePicture:(id)sender;
+- (void)switchCameras:(id)sender;
+- (void)handlePinchGesture:(UIGestureRecognizer *)sender;
+- (void)toggleFaceDetection:(BOOL)isOn;
 
 @end

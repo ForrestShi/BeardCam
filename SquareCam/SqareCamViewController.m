@@ -381,8 +381,10 @@ bail:
 
 // main action method to take a still image -- if face detection has been turned on and a face has been detected
 // the square overlay will be composited on top of the captured image and saved to the camera roll
-- (IBAction)takePicture:(id)sender
+- (void)takePicture:(id)sender
 {
+    DLog(@"%s",__PRETTY_FUNCTION__);
+    
 	// Find out the current orientation and tell the still image output.
 	AVCaptureConnection *stillImageConnection = [stillImageOutput connectionWithMediaType:AVMediaTypeVideo];
 	UIDeviceOrientation curDeviceOrientation = [[UIDevice currentDevice] orientation];
@@ -390,7 +392,7 @@ bail:
 	[stillImageConnection setVideoOrientation:avcaptureOrientation];
 	[stillImageConnection setVideoScaleAndCropFactor:effectiveScale];
 	
-    BOOL doingFaceDetection = detectFaces && (effectiveScale == 1.0);
+    BOOL doingFaceDetection = YES; // detectFaces && (effectiveScale == 1.0);
 	
     // set the appropriate pixel format / image type output setting depending on if we'll need an uncompressed image for
     // the possiblity of drawing the red square over top or if we're just writing a jpeg to the camera roll which is the trival case
@@ -477,9 +479,9 @@ bail:
 }
 
 // turn on/off face detection
-- (IBAction)toggleFaceDetection:(id)sender
+- (void)toggleFaceDetection:(BOOL)isOn
 {
-	detectFaces = [(UISwitch *)sender isOn];
+	detectFaces = isOn;
 	[[videoDataOutput connectionWithMediaType:AVMediaTypeVideo] setEnabled:detectFaces];
 	if (!detectFaces) {
 		dispatch_async(dispatch_get_main_queue(), ^(void) {
@@ -719,7 +721,7 @@ bail:
 }
 
 // use front/back camera
-- (IBAction)switchCameras:(id)sender
+- (void)switchCameras:(id)sender
 {
 	AVCaptureDevicePosition desiredPosition;
 	if (isUsingFrontFacingCamera)
@@ -748,12 +750,48 @@ bail:
     // Release any cached data, images, etc that aren't in use.
 }
 
+#define SWITCH_CAMERA_WIDTH     80.0
+#define SWITCH_CAMERA_HEIGHT    60.0
+#define GAP_X                   30.0 
+#define GAP_Y                   30.0
+
+#define TAKE_PIC_BTN_WIDTH     80.0
+#define TAKE_PIC_BTN_HEIGHT    60.0
+
+- (void) createUI{
+    
+    if (!previewView) {
+        //previewView = [[UIView alloc] initWithFrame:FULLSCREEN];
+        previewView = [[UIView alloc] initWithFrame:self.view.bounds];
+    }
+
+    UISwitch *frontBackCameraSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(self.view.bounds.size.width - SWITCH_CAMERA_WIDTH - GAP_X , GAP_Y, SWITCH_CAMERA_WIDTH, SWITCH_CAMERA_HEIGHT)];
+    [frontBackCameraSwitch addTarget:self action:@selector(switchCameras:) forControlEvents:UIControlEventTouchUpInside];
+    frontBackCameraSwitch.backgroundColor = [UIColor clearColor];
+    
+    DLog(@"%s previewView %@", __PRETTY_FUNCTION__, NSStringFromCGRect(previewView.frame) );
+    [self.view addSubview:previewView];
+    [self.view addSubview:frontBackCameraSwitch];
+    [frontBackCameraSwitch release];
+    
+    UIButton *takePictureButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    takePictureButton.frame = CGRectMake(self.view.bounds.size.width/2 - TAKE_PIC_BTN_WIDTH/2, 
+                                         self.view.bounds.size.height - TAKE_PIC_BTN_HEIGHT - GAP_Y, TAKE_PIC_BTN_WIDTH, TAKE_PIC_BTN_HEIGHT);
+    
+    takePictureButton.backgroundColor = [UIColor grayColor];
+    [takePictureButton addTarget:self action:@selector(takePicture:) forControlEvents:UIControlEventTouchUpInside];
+    //[self.view insertSubview:takePictureButton aboveSubview:previewView];    
+    [self.view addSubview:takePictureButton];
+}
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    [self createUI];
+    
 	[self setupAVCapture];
 	//square = [[UIImage imageNamed:@"squarePNG"] retain];
     self.beardImage = [UIImage imageNamed:@"border"];
@@ -761,6 +799,8 @@ bail:
 	NSDictionary *detectorOptions = [[NSDictionary alloc] initWithObjectsAndKeys:CIDetectorAccuracyLow, CIDetectorAccuracy, nil];
 	faceDetector = [[CIDetector detectorOfType:CIDetectorTypeFace context:nil options:detectorOptions] retain];
 	[detectorOptions release];
+    
+    [self toggleFaceDetection:YES];
 }
 
 - (void)viewDidUnload

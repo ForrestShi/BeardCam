@@ -1,3 +1,10 @@
+### BeardCam ###
+
+TODO List:
+1. Remove Storyboard with universal approach 
+2. Design UI
+
+
 ### SquareCam ###
 
 ===========================================================================
