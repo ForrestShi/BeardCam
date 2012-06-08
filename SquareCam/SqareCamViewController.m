@@ -159,7 +159,7 @@ static CGContextRef CreateCGBitmapContextForSize(CGSize size)
 	AVCaptureDeviceInput *deviceInput = [AVCaptureDeviceInput deviceInputWithDevice:device error:&error];
 	require( error == nil, bail );
 	
-    isUsingFrontFacingCamera = NO;
+    isUsingFrontFacingCamera = YES;
 	if ( [session canAddInput:deviceInput] )
 		[session addInput:deviceInput];
 	
@@ -381,7 +381,7 @@ bail:
 
 // main action method to take a still image -- if face detection has been turned on and a face has been detected
 // the square overlay will be composited on top of the captured image and saved to the camera roll
-- (void)takePicture:(id)sender
+- (void)takeFacePicture:(id)sender
 {
     DLog(@"%s",__PRETTY_FUNCTION__);
     
@@ -761,7 +761,6 @@ bail:
 - (void) createUI{
     
     if (!previewView) {
-        //previewView = [[UIView alloc] initWithFrame:FULLSCREEN];
         previewView = [[UIView alloc] initWithFrame:self.view.bounds];
     }
 
@@ -773,15 +772,28 @@ bail:
     [self.view addSubview:previewView];
     [self.view addSubview:frontBackCameraSwitch];
     [frontBackCameraSwitch release];
+
+    // This UIButton can not response / WHY ?
+//    UIButton *takePictureButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+//    takePictureButton.frame = CGRectMake(self.view.bounds.size.width/2 - TAKE_PIC_BTN_WIDTH/2, 
+//                                         self.view.bounds.size.height - TAKE_PIC_BTN_HEIGHT - GAP_Y, 
+//                                         TAKE_PIC_BTN_WIDTH, TAKE_PIC_BTN_HEIGHT);
+//
+//    takePictureButton.userInteractionEnabled = YES;
+//    takePictureButton.backgroundColor = [UIColor clearColor];
+//    [takePictureButton addTarget:self action:@selector(takeFacePicture:) forControlEvents:UIControlEventAllEvents];
+//    [takePictureButton bringSubviewToFront:self.view];
+//    [self.view addSubview:takePictureButton];
     
-    UIButton *takePictureButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    takePictureButton.frame = CGRectMake(self.view.bounds.size.width/2 - TAKE_PIC_BTN_WIDTH/2, 
-                                         self.view.bounds.size.height - TAKE_PIC_BTN_HEIGHT - GAP_Y, TAKE_PIC_BTN_WIDTH, TAKE_PIC_BTN_HEIGHT);
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(takeFacePicture:)];
+    [self.view addGestureRecognizer:tapGesture];
+    [tapGesture release];
     
-    takePictureButton.backgroundColor = [UIColor grayColor];
-    [takePictureButton addTarget:self action:@selector(takePicture:) forControlEvents:UIControlEventTouchUpInside];
-    //[self.view insertSubview:takePictureButton aboveSubview:previewView];    
-    [self.view addSubview:takePictureButton];
+    UIPinchGestureRecognizer *pinchGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchGesture:)];
+    [self.view addGestureRecognizer:pinchGesture];
+    [pinchGesture release];
+    
+    
 }
 
 #pragma mark - View lifecycle
@@ -845,7 +857,7 @@ bail:
 }
 
 // scale image depending on users pinch gesture
-- (IBAction)handlePinchGesture:(UIPinchGestureRecognizer *)recognizer
+- (void)handlePinchGesture:(UIPinchGestureRecognizer *)recognizer
 {
 	BOOL allTouchesAreOnThePreviewLayer = YES;
 	NSUInteger numTouches = [recognizer numberOfTouches], i;

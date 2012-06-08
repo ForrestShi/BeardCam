@@ -22,8 +22,6 @@
 		1B867FF3139D4AD300AD6B47 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B867FF1139D4AD300AD6B47 /* MainStoryboard_iPad.storyboard */; };
 		2BA4850713F1E6AA000BABB3 /* SquareCamAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BA4850413F1E6AA000BABB3 /* SquareCamAppDelegate.m */; };
 		2BA4850813F1E6AA000BABB3 /* SqareCamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BA4850613F1E6AA000BABB3 /* SqareCamViewController.m */; };
-		2BA4851013F1E6CC000BABB3 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BA4850C13F1E6CC000BABB3 /* MainStoryboard_iPad.storyboard */; };
-		2BA4851113F1E6CC000BABB3 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BA4850E13F1E6CC000BABB3 /* MainStoryboard_iPhone.storyboard */; };
 		2BA4851713F1E6DB000BABB3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BA4851313F1E6DB000BABB3 /* main.m */; };
 		2BA4851813F1E6DB000BABB3 /* squarePNG.png in Resources */ = {isa = PBXBuildFile; fileRef = 2BA4851513F1E6DB000BABB3 /* squarePNG.png */; };
 		2BA4851A13F1EC39000BABB3 /* ReadMe.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2BA4851913F1EC39000BABB3 /* ReadMe.txt */; };
@@ -47,8 +45,6 @@
 		2BA4850413F1E6AA000BABB3 /* SquareCamAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SquareCamAppDelegate.m; path = SquareCam/SquareCamAppDelegate.m; sourceTree = SOURCE_ROOT; };
 		2BA4850513F1E6AA000BABB3 /* SquareCamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SquareCamViewController.h; path = SquareCam/SquareCamViewController.h; sourceTree = SOURCE_ROOT; };
 		2BA4850613F1E6AA000BABB3 /* SqareCamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SqareCamViewController.m; path = SquareCam/SqareCamViewController.m; sourceTree = SOURCE_ROOT; };
-		2BA4850D13F1E6CC000BABB3 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = SquareCam/en.lproj/MainStoryboard_iPad.storyboard; sourceTree = SOURCE_ROOT; };
-		2BA4850F13F1E6CC000BABB3 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = SquareCam/en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = SOURCE_ROOT; };
 		2BA4851213F1E6DB000BABB3 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = SquareCam/Info.plist; sourceTree = SOURCE_ROOT; };
 		2BA4851313F1E6DB000BABB3 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = SquareCam/main.m; sourceTree = SOURCE_ROOT; };
 		2BA4851413F1E6DB000BABB3 /* Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Prefix.pch; path = SquareCam/Prefix.pch; sourceTree = SOURCE_ROOT; };
@@ -122,8 +118,6 @@
 				2BA4850413F1E6AA000BABB3 /* SquareCamAppDelegate.m */,
 				2BA4850513F1E6AA000BABB3 /* SquareCamViewController.h */,
 				2BA4850613F1E6AA000BABB3 /* SqareCamViewController.m */,
-				2BA4850C13F1E6CC000BABB3 /* MainStoryboard_iPad.storyboard */,
-				2BA4850E13F1E6CC000BABB3 /* MainStoryboard_iPhone.storyboard */,
 				1B867FE3139D4AD300AD6B47 /* Supporting Files */,
 			);
 			name = SquareCam;
@@ -193,8 +187,6 @@
 			files = (
 				1B867FF0139D4AD300AD6B47 /* MainStoryboard_iPhone.storyboard in Resources */,
 				1B867FF3139D4AD300AD6B47 /* MainStoryboard_iPad.storyboard in Resources */,
-				2BA4851013F1E6CC000BABB3 /* MainStoryboard_iPad.storyboard in Resources */,
-				2BA4851113F1E6CC000BABB3 /* MainStoryboard_iPhone.storyboard in Resources */,
 				2BA4851813F1E6DB000BABB3 /* squarePNG.png in Resources */,
 				2BA4851A13F1EC39000BABB3 /* ReadMe.txt in Resources */,
 				18A7FE67157E4A6A00745E21 /* border.png in Resources */,
@@ -233,22 +225,6 @@
 			name = MainStoryboard_iPad.storyboard;
 			path = "/Users/edward/Downloads/AVFoundation Samples/419-Capturing from the Camera using AV Foundation on iOS 5/SquareCam/StacheCam";
 			sourceTree = "<absolute>";
-		};
-		2BA4850C13F1E6CC000BABB3 /* MainStoryboard_iPad.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				2BA4850D13F1E6CC000BABB3 /* en */,
-			);
-			name = MainStoryboard_iPad.storyboard;
-			sourceTree = "<group>";
-		};
-		2BA4850E13F1E6CC000BABB3 /* MainStoryboard_iPhone.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				2BA4850F13F1E6CC000BABB3 /* en */,
-			);
-			name = MainStoryboard_iPhone.storyboard;
-			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
 
